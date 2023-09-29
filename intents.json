@@ -50,6 +50,33 @@
         "Please give me more info",
         "Not sure I understand"
       ]
+    },
+    {
+      "tag": "topmanga",
+      "patterns": [
+        "top manga",
+        "Can I see the top manga",
+        "What are the top manga"
+      ],
+      "responses": ["Here are the top manga"]
+    },
+    {
+      "tag": "recentmanga",
+      "patterns": [
+        "recent manga",
+        "Can I see some recent manga",
+        "What are the most recent manga"
+      ],
+      "responses": ["Here are the most recent manga"]
+    },
+    {
+      "tag": "recommendations",
+      "patterns": [
+        "recommendations",
+        "Can I get some manga recommendations",
+        "recommend me some manga"
+      ],
+      "responses": ["Here are the recommendations"]
     }
   ]
 }
