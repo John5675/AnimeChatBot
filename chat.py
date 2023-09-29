@@ -6,6 +6,8 @@ import torch
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 
+import requests
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 with open("intents.json", "r") as json_data:
@@ -24,6 +26,27 @@ model_state = data["model_state"]
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
+
+
+def top_manga():
+    request = requests.get(f"https://api.jikan.moe/v4/top/manga")
+    request = request.json()
+    request = request["data"]
+    list = ""
+    for manga in request:
+        list = list + manga["title"] + "\n"
+    print("\nHere are the top manga of all time: \n" + list)
+
+
+def recent_manga():
+    request = requests.get(f"https://api.jikan.moe/v4/recommendations/manga?page=1")
+    request = request.json()
+    request = request["data"]
+    list = ""
+    for manga in request:
+        list = list + manga["entry"][0]["title"] + "\n"
+    print("\nHere are the recent manga: \n" + list)
+
 
 bot_name = "Mangaka"
 print("Let's chat! (type 'quit' to exit)")
@@ -46,7 +69,11 @@ while True:
     prob = probs[0][predicted.item()]
     if prob.item() > 0.75:
         for intent in intents["intents"]:
-            if tag == intent["tag"]:
+            if tag == "topmanga" and tag == intent["tag"]:
+                top_manga()
+            elif tag == "recentmanga" and tag == intent["tag"]:
+                recent_manga()
+            elif tag == intent["tag"]:
                 print(f"{bot_name}: {random.choice(intent['responses'])}")
     else:
         print(f"{bot_name}: I do not understand...")
