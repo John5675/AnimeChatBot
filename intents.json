@@ -77,6 +77,16 @@
         "recommend me some manga"
       ],
       "responses": ["Here are the recommendations"]
+    },
+    {
+      "tag": "summary",
+      "patterns": [
+        "summary",
+        "Can I get a summary",
+        "Can I learn more about",
+        "Can I get a synopsis"
+      ],
+      "responses": ["Here is the summary"]
     }
   ]
 }
