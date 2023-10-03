@@ -48,6 +48,15 @@ def recent_manga():
     print("\nHere are the recent manga: \n" + list)
 
 
+def summary_manga(title):
+    request = requests.get(
+        f"https://api.jikan.moe/v4/manga?limit=1&type=manga&q={title[-1]}"
+    )
+    request = request.json()
+    request = request["data"][0]
+    print(f"\nSummary of {request['title']}: " + request["synopsis"] + "\n")
+
+
 bot_name = "Mangaka"
 print("Let's chat! (type 'quit' to exit)")
 while True:
@@ -73,6 +82,8 @@ while True:
                 top_manga()
             elif tag == "recentmanga" and tag == intent["tag"]:
                 recent_manga()
+            elif tag == "summary" and tag == intent["tag"]:
+                summary_manga(sentence)
             elif tag == intent["tag"]:
                 print(f"{bot_name}: {random.choice(intent['responses'])}")
     else:
